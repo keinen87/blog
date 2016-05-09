@@ -20,15 +20,17 @@ class Profile(models.Model):
     age = property(_get_age)
 
 class Post(models.Model):
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(blank=True, unique=True)
     title = models.TextField()
     pub_date = models.DateField(default=timezone.now)
     short_desc = models.TextField()
     description = models.TextField()
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         self.slug = str(self.id) + "-" + slugify(self.title)
         super().save(*args, **kwargs)
+        
 
 class PostProxy(Post):
     class Meta:
