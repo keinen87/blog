@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
-from django.contrib.auth import get_user_model
 from django.conf import settings
 
 
@@ -102,12 +101,20 @@ class Profile(models.Model):
         return str(200)
     age = property(_get_age)
 
+class CustomManager(models.Manager):
+    def get_queryset(self,*args,**kwargs):
+        qs = super().get_queryset(*args,**kwargs)
+        return qs.filter(id__gt=1)
+
 class Post(models.Model):
     slug = models.SlugField(blank=True, unique=True)
     title = models.TextField()
     pub_date = models.DateField(default=timezone.now)
     short_desc = models.TextField()
     description = models.TextField()
+
+    objects = models.Manager()
+    custom_objects = CustomManager()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
