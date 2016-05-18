@@ -17,5 +17,8 @@ class RegForm(forms.Form):
             self.add_error("password1","Password mismatch!")
         if User.objects.filter(email=cleaned_data.get("email")).exists():
             self.add_error("email","Email exists")
-        
 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','avatar','phone','skype']

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from website.models import CustomUser, Profile, Post, PostProxy
+from website.models import CustomUser, Post, PostProxy
 from website.forms import CustomUserChangeForm, CustomUserCreationForm
 
 class CustomUserAdmin(UserAdmin):
@@ -31,12 +31,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
-
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('phone','age')
-
-admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Post)
 admin.site.register(PostProxy)
-
-

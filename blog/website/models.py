@@ -54,6 +54,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    avatar = models.ImageField(_('Avatar'),upload_to="avatar",null=True,blank=True)
+    phone = models.TextField(_('Phone'),null=True,blank=True)
+    skype = models.TextField(_('Skype'),null=True,blank=True)
 
     objects = CustomUserManager()
 
@@ -84,29 +87,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email])
 
-
-class Profile(models.Model):
-    # users => User
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    avatar = models.ImageField(upload_to="avatar")
-    phone = models.TextField()
-    skype = models.TextField(null=True,blank=True)
-    def __str__(self):
-        return self.user.first_name
-    class Meta:
-        verbose_name = "Profile"
-        verbose_name_plural = "Profiles"
-        
-    def _get_age(self):
-        return str(200)
-    age = property(_get_age)
-
 class CustomManager(models.Manager):
     def get_queryset(self,*args,**kwargs):
         qs = super().get_queryset(*args,**kwargs)
         return qs.filter(id__gt=1)
 
 class Post(models.Model):
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     slug = models.SlugField(blank=True, unique=True)
     title = models.TextField()
     pub_date = models.DateField(default=timezone.now)
@@ -120,7 +107,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
         self.slug = str(self.id) + "-" + slugify(self.title)
         super().save(*args, **kwargs)
-        
+
 
 class PostProxy(Post):
     class Meta:
@@ -128,7 +115,7 @@ class PostProxy(Post):
     def save(self, *args, **kwargs):
         self.title = self.title + "OK!"
         super().save(*args, **kwargs)
-        
+
 
 
 # table: profile
@@ -142,4 +129,3 @@ class PostProxy(Post):
 
 # profile(1), profile(2)
 # post(1,2), post(2,2)
-  
