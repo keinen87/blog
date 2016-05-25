@@ -2,10 +2,22 @@
 {% load bootstrap %}
 
 {% block post_content %}
-<h1>{{user.email}}</h1>
-<form action="" method="POST">
-  {% csrf_token %}
-  {{ form|bootstrap }}
-  <button type="submit" class="btn btn-default">Сохранить</button>
-</form>
+<h3>{{request.user.email}}</h3>
+<hr/>
+<p>Имя: {{request.user.first_name}}</p>
+<p>Фамилия: {{request.user.last_name}}</p>
+<p>Телефон: {{request.user.phone}}</p>
+<p>Скайп: {{request.user.skype}}</p>
+{% if request.user.avatar %}
+<img src="{{request.user.avatar.url}}"/>
+{% endif %}
+<br>
+<a href="{% url 'account_edit' %}">Редактировать</a>
+<hr/>
+<h3>Публикации</h3>
+<ul>
+  {% for p in posts %}
+  <li><a href="{% url 'post' p.slug %}">{{p.title}}</a>&nbsp;<a href="" class="btn btn-default">Редактировать</a>&nbsp;<a href="" class="btn btn-default">Удалить</a></li>
+  {% endfor %}
+</ul>
 {% endblock %}
