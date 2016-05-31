@@ -18,6 +18,10 @@ class RegForm(forms.Form):
         if User.objects.filter(email=cleaned_data.get("email")).exists():
             self.add_error("email","Email exists")
 
+class LoginForm(forms.Form):
+    email = forms.CharField(required=True)
+    password = forms.CharField(required=True,widget=forms.PasswordInput)
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
