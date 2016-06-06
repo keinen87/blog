@@ -15,7 +15,7 @@ class PostForm(forms.ModelForm):
         fields = '__all__'
 
 
-def login(request):
+def auth_login(request):
     form = LoginForm()
     if request.method == 'GET':
         return render(request, 'website/login.html', {'form': form})
@@ -27,8 +27,11 @@ def login(request):
             user = authenticate(email=email, password=password)
             if user is not None and user.is_active:
                 login(request, user)
-            return redirect("/account")
-        return render(request, 'website/login.html',{'form': form})
+                return redirect("/account")
+            else:
+                return render(request, 'website/login.html',{'form': form})    
+        else:
+            return render(request, 'website/login.html',{'form': form})
 
 def registration(request):
     form = RegForm()
