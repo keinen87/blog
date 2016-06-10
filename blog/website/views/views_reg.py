@@ -29,7 +29,7 @@ def auth_login(request):
                 login(request, user)
                 return redirect("/account")
             else:
-                return render(request, 'website/login.html',{'form': form})    
+                return render(request, 'website/login.html',{'form': form})
         else:
             return render(request, 'website/login.html',{'form': form})
 

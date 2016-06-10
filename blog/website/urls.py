@@ -9,6 +9,6 @@ urlpatterns = [
         url(r'^account/$', views.account, name='account'),
         url(r'^post/(?P<slug>[-\w]+)/edit/$', views.post_edit, name='post_edit'),
         url(r'^post/(?P<slug>[-\w]+)/$', views.post_view, name='post'),
-	    url(r'^$', views.home, name='home'),
+        url(r'^$', views.home, name='home'),
         url(r'^reg/$', views.registration, name='registration'),
 ]

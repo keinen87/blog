@@ -11,9 +11,9 @@ def home(request):
     paginator = Paginator(posts, 2)
     page = 1
     if 'page' in request.GET:
-        page = int(request.GET['page'])  
+        page = int(request.GET['page'])
     try:
-       posts = paginator.page(page)
+        posts = paginator.page(page)
     except EmptyPage:
        posts = paginator.page(paginator.num_pages)
     return render(request, 'website/index.html',{'posts':posts})
@@ -26,5 +26,3 @@ def post_view(request, slug):
     # URL http://ya.ru/?df=12&name=test&p=0
     post = get_object_or_404(Post, slug=slug)
     return render(request, 'website/post.html', {'post':post})
-
-
