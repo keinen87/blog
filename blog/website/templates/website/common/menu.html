@@ -10,7 +10,7 @@
 {% if user.is_authenticated %}
           <a class="blog-nav-item" href="{% url 'logout' %}">Выход</a>
 {% else %}
-          <a class="blog-nav-item" href="{% url 'login' %}">Вход</a>
+          <a class="blog-nav-item" href="{% url 'auth_login' %}">Вход</a>
 
           <a class="blog-nav-item" href="{% url 'registration' %}">Регистрация</a>
 {% endif %}
