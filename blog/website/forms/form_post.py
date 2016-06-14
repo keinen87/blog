@@ -5,3 +5,8 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title','short_desc','description']
+
+class PollForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['']        
