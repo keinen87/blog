@@ -11,7 +11,6 @@ urlpatterns = [
         url(r'^post/(?P<slug>[-\w]+)/$', views.post_view, name='post'),
         url(r'^$', views.home, name='home'),
         url(r'^reg/$', views.registration, name='registration'),
-        url(r'^poll1/$', views.poll1, name='poll1'),
-        url(r'^poll2/$', views.poll2, name='poll2'),
-        url(r'^poll3/$', views.poll3, name='poll3'),
+        url(r'^poll/$', views.poll, name='poll'),
+
 ]

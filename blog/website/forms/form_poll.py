@@ -1,7 +1,7 @@
 from django import forms
 
 class Poll1(forms.Form):
-    name = forms.CharField(required=True,widget=forms.Textarea,min_length=2,max_length=20)
+    name = forms.CharField(required=True,min_length=2,max_length=20)
     age = forms.IntegerField(required=True,widget=forms.NumberInput,min_value=5,max_value=100)
     def clean(self):
         cleaned_data = super().clean()
