@@ -4,10 +4,10 @@
 {% for post in posts %}
           <div class="blog-post">
             {# /post/1234/ => /razdel/itogi-2017/ #}
-            <h2 class="blog-post-title"><a href="{% url 'post' slug=post.slug %}">{{post.title}}</a></h2>
+            {# url 'post' slug=post.slug #}
+            <h2 class="blog-post-title"><a href="{% url 'post' slug=post.slug %}">{{post.slug}}</a></h2>
             <p class="blog-post-meta">{{post.pub_date}} by <a href="#">{{post.user}}</a></p>
             {{post.description|safe}}
           </div><!-- /.blog-post -->
           {% endfor %}
 {% endblock %}
-

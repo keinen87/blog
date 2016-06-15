@@ -4,6 +4,12 @@ from django.contrib.auth.decorators import login_required
 from website.forms import UserForm
 from website.models import Post
 from website.forms import PostForm
+from django.views.generic import CreateView
+
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title','short_desc','description']
+    
 
 @login_required(login_url='/')
 def account(request):
@@ -33,7 +39,7 @@ def post_edit(request, slug):
         form = PostForm(request.POST,instance=post)
         if form.is_valid():
             form.save()
-    return render(request,"website/post_edit.html",{'form':form})  
+    return render(request,"website/post_edit.html",{'form':form})
 
 def logout(request):
     logout_action(request)
