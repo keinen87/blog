@@ -5,11 +5,23 @@ from website.forms import UserForm
 from website.models import Post
 from website.forms import PostForm
 from django.views.generic import CreateView
+from django.core.urlresolvers import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class PostCreateView(CreateView):
+
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title','short_desc','description']
-    
+    raise_exception = False
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('home')
+
 
 @login_required(login_url='/')
 def account(request):

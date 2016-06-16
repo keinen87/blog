@@ -125,3 +125,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media_root'
 
 AUTH_USER_MODEL = 'website.CustomUser'
+LOGIN_URL = '/login/'
