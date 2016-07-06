@@ -55,8 +55,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     avatar = models.ImageField(_('Avatar'),upload_to="avatar",null=True,blank=True)
-    phone = models.TextField(_('Phone'),null=True,blank=True)
-    skype = models.TextField(_('Skype'),null=True,blank=True)
+    phone = models.TextField(_('Phone'),null=True,blank=True,default='')
+    skype = models.TextField(_('Skype'),null=True,blank=True,default='')
 
     objects = CustomUserManager()
 

@@ -15,9 +15,21 @@
 <a href="{% url 'account_edit' %}">Редактировать</a>
 <hr/>
 <h3>Публикации</h3>
-<ul>
-  {% for p in posts %}
-  <li><a href="{% url 'post' p.slug %}">{{p.title}}</a>&nbsp;<a href="" class="btn btn-default">Редактировать</a>&nbsp;<a href="" class="btn btn-default">Удалить</a></li>
-  {% endfor %}
-</ul>
+<a href="{% url 'account_post_create' %}" class='btn btn-warning'>Создать пост</a>
+<br/><br/>
+
+  <table class='table'>
+    <tr>
+      <td>Наименование поста</td>
+      <td>Действия</td>
+    </tr>
+      {% for p in posts %}
+      <tr>
+        <td><a href="{% url 'post' p.slug %}">{{p.title}}</a></td>
+        <td><a href="" class="btn btn-default">Редактировать</a>&nbsp;
+        <a href="" class="btn btn-default">Удалить</a></td>
+      </tr>
+      {% endfor %}
+
+  </table>
 {% endblock %}
