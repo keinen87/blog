@@ -3,3 +3,4 @@ nohup.out
 *.pyc
 *.*~
 db.sqlite*
+fabfile.py
