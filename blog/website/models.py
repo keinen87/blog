@@ -105,7 +105,7 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.slug = str(self.id) + "-" + slugify(self.title)
+        self.slug = str(self.id) + "-" +slugify(self.title)
         super().save(*args, **kwargs)
 
 

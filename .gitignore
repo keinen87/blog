@@ -4,3 +4,4 @@ nohup.out
 *.*~
 db.sqlite*
 fabfile.py
+blog/db.sqlite3

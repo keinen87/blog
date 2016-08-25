@@ -20,7 +20,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('account')
 
 
 @login_required(login_url='/')
@@ -34,10 +34,11 @@ def account_edit(request):
     #import ipdb; ipdb.set_trace()
     form = UserForm(instance=request.user)
     if request.method == 'POST':
-        form = UserForm(request.POST, instance=request.user)
+        form = UserForm(request.POST, request.FILES, instance=request.user)
         #import ipdb; ipdb.set_trace()
         if form.is_valid():
             form.save()
+            return redirect('account')
     return render(request, "website/account_edit.html",{
     'user': request.user,
     'form': form
