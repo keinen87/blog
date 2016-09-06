@@ -8,7 +8,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.conf import settings
 
-
 class CustomUserManager(BaseUserManager):
 
     def _create_user(self, email, password,
@@ -35,7 +34,6 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password, True, True,
                                  **extra_fields)
-
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
@@ -95,6 +93,7 @@ class CustomManager(models.Manager):
 class Post(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     slug = models.SlugField(blank=True, unique=True)
+#    author = models.OneToOneField(CustomUser)
     title = models.TextField()
     pub_date = models.DateField(default=timezone.now)
     short_desc = models.TextField()
@@ -107,25 +106,3 @@ class Post(models.Model):
         super().save(*args, **kwargs)
         self.slug = str(self.id) + "-" +slugify(self.title)
         super().save(*args, **kwargs)
-
-
-class PostProxy(Post):
-    class Meta:
-        proxy = True
-    def save(self, *args, **kwargs):
-        self.title = self.title + "OK!"
-        super().save(*args, **kwargs)
-
-
-
-# table: profile
-#         id (uniq)
-#         name
-
-# table: post
-#         id (uniq)
-#         profile_id (no uniq)
-#         post_text
-
-# profile(1), profile(2)
-# post(1,2), post(2,2)
