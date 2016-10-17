@@ -52,7 +52,15 @@ def post_edit(request, slug):
         form = PostForm(request.POST,instance=post)
         if form.is_valid():
             form.save()
-    return render(request,"website/post_edit.html",{'form':form})
+            return redirect('account')
+    return render(request,"website/post_form.html",{'form':form})
+
+@login_required(login_url='/')
+def post_delete(request, slug):
+    post = get_object_or_404(Post,slug=slug)
+    post.delete()
+    return redirect('account')
+
 
 def logout(request):
     logout_action(request)

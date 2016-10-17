@@ -6,7 +6,7 @@
 <hr/>
 <p>Имя: {{request.user.first_name}}</p>
 <p>Фамилия: {{request.user.last_name}}</p>
-<p>Телефон: {{request.user.phone}}</p>
+<p>Телефон: {{request.user.phone|default:"not"}}</p>
 <p>Скайп: {{request.user.skype}}</p>
 {% if request.user.avatar %}
 <img src="{{request.user.avatar.url}}"/>
@@ -21,13 +21,15 @@
   <table class='table'>
     <tr>
       <td>Наименование поста</td>
+      <td>Черновик</td>
       <td>Действия</td>
     </tr>
       {% for p in posts %}
       <tr>
         <td><a href="{% url 'post' p.slug %}">{{p.title}}</a></td>
-        <td><a href="" class="btn btn-default">Редактировать</a>&nbsp;
-        <a href="" class="btn btn-default">Удалить</a></td>
+        <td>{{p.is_draft}}</td>
+        <td><a href="{% url 'post_edit' p.slug %}" class="btn btn-default">Редактировать</a>&nbsp;
+        <a href="{% url 'post_delete' p.slug %}" class="btn btn-default">Удалить</a></td>
       </tr>
       {% endfor %}
 

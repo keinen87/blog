@@ -93,14 +93,20 @@ class CustomManager(models.Manager):
 class Post(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     slug = models.SlugField(blank=True, unique=True)
-#    author = models.OneToOneField(CustomUser)
     title = models.TextField()
-    pub_date = models.DateField(default=timezone.now)
+    pub_date = models.DateField(blank=True,null=True)
     short_desc = models.TextField()
     description = models.TextField()
 
     objects = models.Manager()
     custom_objects = CustomManager()
+
+    @property
+    def is_draft(self):
+        if not self.pub_date:
+            return True
+        else:
+            return False
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

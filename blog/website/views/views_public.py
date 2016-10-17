@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 
 def home(request):
     # POST http://example.com/?name=alex&age=21&go=total request.POST
-    #import ipdb; ipdb.set_trace()
+    # import ipdb; ipdb.set_trace()
     posts = Post.objects.all()
     paginator = Paginator(posts, 2)
     page = 1
