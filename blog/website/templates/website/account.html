@@ -4,13 +4,13 @@
 {% block post_content %}
 <h3>{{request.user.email}}</h3>
 <hr/>
-<p>Имя: {{request.user.first_name}}</p>
-<p>Фамилия: {{request.user.last_name}}</p>
-<p>Телефон: {{request.user.phone|default:"not"}}</p>
-<p>Скайп: {{request.user.skype}}</p>
 {% if request.user.avatar %}
 <img src="{{request.user.avatar.url}}"/>
 {% endif %}
+<p>Имя: {{request.user.first_name}}</p>
+<p>Фамилия: {{request.user.last_name}}</p>
+<p>Телефон: {{request.user.phone|default:"не указан"}}</p>
+<p>Скайп: {{request.user.skype|default:"не указан"}}</p>
 <br>
 <a href="{% url 'account_edit' %}">Редактировать</a>
 <hr/>
