@@ -90,6 +90,11 @@ class CustomManager(models.Manager):
         qs = super().get_queryset(*args,**kwargs)
         return qs.filter(id__gt=1)
 
+class NoDraftPostsManager(models.Manager):
+    def get_queryset(self,*args,**kwargs):
+        qs = super().get_queryset(*args,**kwargs)
+        return qs.filter(pub_date__isnull=False)
+
 class Post(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     slug = models.SlugField(blank=True, unique=True)
@@ -100,6 +105,7 @@ class Post(models.Model):
 
     objects = models.Manager()
     custom_objects = CustomManager()
+    no_draft = NoDraftPostsManager()
 
     @property
     def is_draft(self):

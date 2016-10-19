@@ -7,7 +7,10 @@ from django.contrib.auth import get_user_model
 def home(request):
     # POST http://example.com/?name=alex&age=21&go=total request.POST
     # import ipdb; ipdb.set_trace()
-    posts = Post.objects.all()
+    posts = Post.no_draft.all()
+    if "sort" in request.GET:
+        sort_by = request.GET["sort"]
+        posts = posts.order_by(sort_by)
     paginator = Paginator(posts, 2)
     page = 1
     if 'page' in request.GET:
