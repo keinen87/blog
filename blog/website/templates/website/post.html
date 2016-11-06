@@ -1,4 +1,5 @@
 {% extends 'website/common/layout.html' %}
+{% load bootstrap %}
 
 {% block post_content %}
 <div class="blog-post">
@@ -6,6 +7,10 @@
             <p class="blog-post-meta">{{post.pub_date}} by <a href="#">{{post.user}}</a></p>
             {{post.description|safe}}
           </div><!-- /.blog-post -->
+          <form action="" method="POST">
+            {% csrf_token %}
+            {{ form|bootstrap }}
+            <button type="submit" class="btn btn-default">Сохранить</button>
+          </form>
 {% block paging %}{% endblock %}
 {% endblock %}
-

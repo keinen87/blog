@@ -9,7 +9,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'website/index.html'
+    template_name = 'website/post.html'
     context_object_name = 'post'
     #query_pk_and_slug = True
     #pk_url_kwarg = 'slug'

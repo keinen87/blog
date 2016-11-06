@@ -1,8 +1,9 @@
+{% load qurl %}
    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
      <div class="sidebar-module">
        <p>Сортировать посты:</p>
-       <a href="?sort=owner" class="label label-default">по автору</a>
-       <a href="" class="label label-default">по дате</a>
+       <a href="{% qurl request.get_full_path sort='owner__email' %}" class="label label-default">по автору</a>
+       <a href="{% qurl request.get_full_path sort='pub_date' %}" class="label label-default">по дате</a>
      </div>
           <div class="sidebar-module sidebar-module-inset">
             <h4>About</h4>

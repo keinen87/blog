@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'bootstrapform',
     'website',
 ]
@@ -121,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "static_root"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media_root'
 

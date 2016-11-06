@@ -7,6 +7,9 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericRelation
 
 class CustomUserManager(BaseUserManager):
 
@@ -95,6 +98,15 @@ class NoDraftPostsManager(models.Manager):
         qs = super().get_queryset(*args,**kwargs)
         return qs.filter(pub_date__isnull=False)
 
+class Comments(models.Model):
+    text = models.TextField()
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
+    pub_date = models.DateField(blank=True,null=True)
+    create_date = models.DateField(blank=True,null=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
 class Post(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     slug = models.SlugField(blank=True, unique=True)
@@ -102,6 +114,7 @@ class Post(models.Model):
     pub_date = models.DateField(blank=True,null=True)
     short_desc = models.TextField()
     description = models.TextField()
+    comments = GenericRelation(Comments)
 
     objects = models.Manager()
     custom_objects = CustomManager()
