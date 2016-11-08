@@ -31,14 +31,21 @@ def post_view(request, slug):
     # URL http://ya.ru/?df=12&name=test&p=0
     form = None
     post = get_object_or_404(Post, slug=slug)
+    comments = Comments.objects.filter(post = post, pub_date__isnull=False)
+    no_form = False
+    if post.owner == request.user:
+        no_form = True
     if request.method == "GET":
         form = PostCommentForm()
+        # import ipdb; ipdb.set_trace()
     elif request.method == "POST":
         form = PostCommentForm(request.POST)
         if form.is_valid():
             comment = Comments()
             comment.text = form.data["post_text"]
             comment.owner = request.user
-            comment.content_object = post
+            comment.post = post
             comment.save()
-    return render(request, 'website/post.html', {'post':post, 'form': form})
+            form = PostCommentForm()
+    return render(request, 'website/post.html', {
+    'post':post, 'form': form, 'comments': comments,'no_form':no_form})

@@ -7,7 +7,7 @@ from website.forms import PostForm
 from django.views.generic import CreateView
 from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.utils import timezone
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -61,6 +61,12 @@ def post_delete(request, slug):
     post.delete()
     return redirect('account')
 
+@login_required(login_url='/')
+def post_publish(request,slug):
+    post = get_object_or_404(Post,slug=slug)
+    post.pub_date = timezone.now()
+    post.save()
+    return redirect('account')
 
 def logout(request):
     logout_action(request)

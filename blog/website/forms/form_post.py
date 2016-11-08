@@ -7,4 +7,4 @@ class PostForm(forms.ModelForm):
         fields = ['title','short_desc','description']
 
 class PostCommentForm(forms.Form):
-    post_text = forms.CharField()
+    post_text = forms.CharField(widget=forms.Textarea, label="Комментарий")

@@ -15,6 +15,7 @@ urlpatterns = [
         url(r'^account/$', views.account, name='account'),
         url(r'^post/(?P<slug>[-\w]+)/edit/$', views.post_edit, name='post_edit'),
         url(r'^post/(?P<slug>[-\w]+)/delete/$',views.post_delete, name='post_delete'),
+        url(r'^post/(?P<slug>[-\w]+)/publish/$',views.post_publish, name='post_publish'),
         url(r'^post/(?P<slug>[-\w]+)/$', views.post_view, name='post'),
         #url(r'^post/(?P<slug>[-\w]+)/$', views_cbv_public.PostDetailView.as_view(), name='post'),
         url(r'^$', views.home, name='home'),

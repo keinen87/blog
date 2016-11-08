@@ -28,8 +28,15 @@
       <tr>
         <td><a href="{% url 'post' p.slug %}">{{p.title}}</a></td>
         <td>{{p.is_draft}}</td>
-        <td><a href="{% url 'post_edit' p.slug %}" class="btn btn-default">Редактировать</a>&nbsp;
-        <a href="{% url 'post_delete' p.slug %}" class="btn btn-default">Удалить</a></td>
+        <td>
+          <table>
+            <tr>
+              <td><a href="{% url 'post_publish' p.slug %}" class="btn btn-default">Опубликовать</a></td>
+              <td><a href="{% url 'post_edit' p.slug %}" class="btn btn-default">Редактировать</a></td>
+              <td><a href="{% url 'post_delete' p.slug %}" class="btn btn-default">Удалить</a></td>
+            </tr>
+          </table>
+        </td>
       </tr>
       {% endfor %}
 

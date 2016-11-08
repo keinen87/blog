@@ -98,15 +98,6 @@ class NoDraftPostsManager(models.Manager):
         qs = super().get_queryset(*args,**kwargs)
         return qs.filter(pub_date__isnull=False)
 
-class Comments(models.Model):
-    text = models.TextField()
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
-    pub_date = models.DateField(blank=True,null=True)
-    create_date = models.DateField(blank=True,null=True)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
 class Post(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     slug = models.SlugField(blank=True, unique=True)
@@ -114,7 +105,7 @@ class Post(models.Model):
     pub_date = models.DateField(blank=True,null=True)
     short_desc = models.TextField()
     description = models.TextField()
-    comments = GenericRelation(Comments)
+    # comments = GenericRelation(Comments)
 
     objects = models.Manager()
     custom_objects = CustomManager()
@@ -131,3 +122,13 @@ class Post(models.Model):
         super().save(*args, **kwargs)
         self.slug = str(self.id) + "-" +slugify(self.title)
         super().save(*args, **kwargs)
+
+class Comments(models.Model):
+    text = models.TextField()
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
+    pub_date = models.DateField(blank=True,null=True)
+    create_date = models.DateField(blank=True,null=True)
+    post = models.ForeignKey(Post)
+    # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    # object_id = models.PositiveIntegerField()
+    # content_object = GenericForeignKey('content_type', 'object_id')
